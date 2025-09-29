@@ -112,6 +112,30 @@ Ancestro 99: -1
 
 ![Imagen de WhatsApp 2025-09-29 a las 11 43 36_d6ef8488](https://github.com/user-attachments/assets/5d8bcd7b-3c59-4aac-a672-682739c2bdbb)
 
+### Explicación de resultados basados en el kernel:
+
+**Proceso actual**  
+- `myproc()` devuelve el proceso que ejecuta `yosoytupadre`: **PID = 3**.  
+- `getpid()` → 3, `getppid()` → 2.
+
+**getancestor(0)**  
+- Inicia con `p = myproc()` (PID 3).  
+- Como `n = 0`, no recorre padres.  
+- Retorna **3** (el mismo proceso).
+
+**getancestor(1)**  
+- Parte en **PID 3**.  
+- Recorre 1 vez `p = p->parent` → llega a **PID 2**.  
+- Retorna **2** (el padre).
+
+**getancestor(2)**  
+- Parte en **PID 3** → sube a **PID 2** → sube a **PID 1 (init)**.  
+- Retorna **1** (el abuelo).
+
+**getancestor(99)**  
+- Parte en **PID 3**, sube hasta **PID 1** y ya no hay `parent`.  
+- Como no existen tantos ancestros, retorna **-1**.
+
 
 ## Conclusión
 
