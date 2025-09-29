@@ -1,19 +1,24 @@
-# Tarea 0 –  GRUPO H
+# Informe – Tarea 1: Nuevas llamadas al sistema en xv6 
 
 
-## Pasos seguidos
-1. Activé virtualización en BIOS/UEFI y habilité WSL2 en Windows.
-2. Instalé Ubuntu (WSL) y configuré usuario.
-3. Instalé varias dependencias en ubunto  como sudo apt install -y qemu-system-misc 
-4. accedi a mi repo de windows "/mnt/c/Users/almen/OneDrive/Escritorio/universidad/10mo semestre/Sistemas operativos/xv6-riscv"
-5. cree mi rama con  git checkout -b almen_t0
-6. ejecute  make qemu
-7. hice las pruebas correspondientes( ls, echo  "Hola xv6", cat README)
-8. sali de XV6 para crear el informe
+#integrantes: Almendra Aedo, Gabriel Basualto (GRUPO H)
 
-##Problemas y soluciones
-- “fatal: detected dubious ownership …”*: agregué safe.director en Git.
-- No corrio el make quemu asi que instale `gcc-riscv64-unknown-elf
+
+## Modificaciones realizadas
+
+1. **`kernel/syscall.h`** → se agregaron `SYS_getppid` y `SYS_getancestor`.
+2. **`kernel/syscall.c`** → se registraron en la tabla de syscalls.
+3. **`kernel/sysproc.c`** → implementación de ambas funciones con locks para evitar inconsistencias.
+4. **`user/user.h`** y **`user/usys.pl`** → prototipos y stubs de usuario.
+5. **`user/yosoytupadre.c`** → programa de prueba.
+6. **`Makefile`** → añadido `yosoytupadre` a `UPROGS`.
+
+## Dificultades y soluciones
+- **`argint` definido como `void`**: no se podía usar en un `if`. → Cambio a `argint(0, &n); if (n < 0) return -1;`.
+- **Errores por duplicar funciones**: inicialmente se declaró `sys_getancestor` dos veces. → Se dejó una única definición correcta.
+
 
 ## Conclusión
-xv6 se compila y ejecuta correctamente en QEMU bajo WSL2.
+
+Las llamadas al sistema fueron implementadas y probadas exitosamente. `getppid` y `getancestor` funcionan según lo esperado, devolviendo los PIDs correctos y manejando casos inválidos. El sistema xv6 quedó extendido con nuevas funcionalidades listas para usarse.
+
