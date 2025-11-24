@@ -6,6 +6,7 @@ El sistema operativo xv6, desarrollado para la arquitectura RISC-V, implementa a
 
 El objetivo de esta tarea fue extender xv6 incorporando un mecanismo de protección de lectura para páginas de usuario, mediante la creación de dos nuevas llamadas al sistema:
 
+
 mrdprotect(void *addr, int len)
 
 munrdprotect(void *addr, int len)
